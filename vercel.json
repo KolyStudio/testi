@@ -6,20 +6,29 @@
          {
            "type": "header",
            "key": "user-agent",
-           "value": ".*(FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\/|KAKAOTALK).*"
+           "value": ".*(FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\\/|KAKAOTALK).*"
          }
        ],
        "headers": [
          {
-           "key": "Location",
-           "value": "x-safari-https://testtest-one-beta.vercel.app/"
-         },
-         {
            "key": "Refresh",
            "value": "0;url=x-safari-https://testtest-one-beta.vercel.app/"
          }
+       ]
+     }
+   ],
+   "redirects": [
+     {
+       "source": "/(.*)",
+       "has": [
+         {
+           "type": "header",
+           "key": "user-agent",
+           "value": ".*(FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\\/|KAKAOTALK).*"
+         }
        ],
-       "status": 302
+       "destination": "x-safari-https://testtest-one-beta.vercel.app/",
+       "permanent": false
      }
    ]
  }
