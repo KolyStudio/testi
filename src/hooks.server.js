@@ -45,7 +45,7 @@ export async function handle({ event, resolve }) {
       redirectUrl = `x-safari-${redirectUrl}`;
     } else if (isAndroid) {
       const cleaned = redirectUrl.replace(/^https?:\/\//, '');
-      redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
+      redirectUrl = `intent://${cleaned}#Intent;end`;
     }
 
     return new Response('Redirecting...', {
