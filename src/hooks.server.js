@@ -1,6 +1,7 @@
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-   // Récupérer le User-Agent
+   // Récupérer l'URL de la requête
+   const url = event.url;
    const userAgent = event.request.headers.get('user-agent') || '';
    
    // Liste des patterns pour détecter les applications mobiles
@@ -23,23 +24,27 @@ export async function handle({ event, resolve }) {
    const isInApp = inAppBrowserPatterns.some(pattern => userAgent.includes(pattern));
    
    // Si l'utilisateur est dans une application mobile et que ce n'est pas déjà une redirection
-   if (isInApp && !event.url.pathname.includes('redirected')) {
+   if (isInApp && !url.pathname.includes('redirected')) {
      // Détecter le système (iOS ou Android)
      const isIOS = /iPhone|iPad|iPod/.test(userAgent);
      const isAndroid = /Android/.test(userAgent);
  
-     let redirectUrl = 'https://testi-4c8n.vercel.app/'; // Par défaut, redirection vers Safari
+     // Récupérer l'URL de la requête pour la redirection
+     let redirectUrl = url.toString(); // Cela utilise l'URL complète de la requête
  
+     // Si sur iOS, redirection vers Safari (exemple x-safari-URL)
      if (isIOS) {
-       // Si sur iOS, redirection vers Safari (exemple x-safari-URL)
        redirectUrl = `x-safari-${redirectUrl}`;
      } else if (isAndroid) {
-       // Si sur Android, redirection via intent:// (pour Chrome)
+       // Si sur Android, redirection via intent:// pour ouvrir dans Chrome
        const cleaned = redirectUrl.replace(/^https?:\/\//, '');
        redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
      }
  
-     // Ajouter le paramètre "redirected" pour ne pas boucler dans la redirection
+     // Ajouter le paramètre "redirected" pour éviter une boucle de redirection
+     redirectUrl += (redirectUrl.includes('?') ? '&' : '?') + 'redirected=true';
+ 
+     // Retourner une réponse de redirection
      return new Response('Redirecting...', {
        status: 302,
        headers: {
@@ -47,8 +52,8 @@ export async function handle({ event, resolve }) {
        }
      });
    }
-   
-   // Continuer normalement si ce n'est pas une application mobile ou si déjà redirigé
+ 
+   // Continuer normalement si ce n'est pas une application mobile ou déjà redirigé
    return await resolve(event);
  }
  
