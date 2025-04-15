@@ -20,24 +20,26 @@ export async function handle({ event, resolve }) {
  
    const isInApp = inAppBrowserPatterns.some(pattern => userAgent.includes(pattern));
    const isIOS = /iPhone|iPad|iPod/.test(userAgent);
+   const isAndroid = /Android/.test(userAgent);
  
    const extractIOSVersion = (userAgent) => {
-     const match = userAgent.match(/(?:OS|iOS|Version)[\s/]*(\d+)[._]/);
+     const match = userAgent.match(/iPhone OS (\d+)_(\d+)/);
      if (match) {
-       return parseInt(match[1], 10);
+       return parseFloat(`${match[1]}.${match[2]}`);
      }
      return null;
    };
  
    const iosVersion = isIOS ? extractIOSVersion(userAgent) : null;
-   const isIOSGreaterThan17 = iosVersion && iosVersion > 17;
- 
-   if (isInApp && !url.pathname.includes('redirected')) {
+   const isIOSGreaterThan17 = iosVersion && iosVersion >= 17;
+   console.log(iosVersion)
+   console.log(isIOSGreaterThan17)
+   if (isInApp) {
      let redirectUrl = url.origin + url.pathname;
- 
-     if (isIOS) {
+      
+     if (isIOS & isIOSGreaterThan17) {
        redirectUrl = `x-safari-${redirectUrl}`;
-     } else if (/Android/.test(userAgent)) {
+     } else if (isAndroid) {
        const cleaned = redirectUrl.replace(/^https?:\/\//, '');
        redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
      }
