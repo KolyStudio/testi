@@ -1,0 +1,25 @@
+{
+   "headers": [
+     {
+       "source": "/(.*)",
+       "has": [
+         {
+           "type": "header",
+           "key": "user-agent",
+           "value": ".*(FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\/|KAKAOTALK).*"
+         }
+       ],
+       "headers": [
+         {
+           "key": "Location",
+           "value": "x-safari-https://testtest-one-beta.vercel.app/"
+         },
+         {
+           "key": "Refresh",
+           "value": "0;url=x-safari-https://testtest-one-beta.vercel.app/"
+         }
+       ],
+       "status": 302
+     }
+   ]
+ }
