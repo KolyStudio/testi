@@ -2,7 +2,7 @@
 export async function handle({ event, resolve }) {
    const url = event.url;
    const userAgent = event.request.headers.get('user-agent') || '';
-
+ 
    const inAppBrowserPatterns = [
      'FB_IAB', 'FBAN', 'FBAV',
      'Instagram',
@@ -17,11 +17,11 @@ export async function handle({ event, resolve }) {
      'Pinterest',
      'LinkedInApp'
    ];
-
+ 
    const isInApp = inAppBrowserPatterns.some(pattern => userAgent.includes(pattern));
    const isIOS = /iPhone|iPad|iPod/.test(userAgent);
    const isAndroid = /Android/.test(userAgent);
-
+ 
    const extractIOSVersion = (userAgent) => {
      const match = userAgent.match(/iPhone OS (\d+)_(\d+)/);
      if (match) {
@@ -29,28 +29,21 @@ export async function handle({ event, resolve }) {
      }
      return null;
    };
-
+ 
    const iosVersion = isIOS ? extractIOSVersion(userAgent) : null;
    const isIOSGreaterThan17 = iosVersion && iosVersion >= 17;
    console.log(iosVersion)
    console.log(isIOSGreaterThan17)
-   // Pour iOS < 17, on ne redirige pas, même dans les navigateurs in-app
-   if (isIOS && !isIOSGreaterThan17) {
-     // Continuer sans redirection pour iOS < 17
-     return await resolve(event);
-   }
-
-   // Pour Android ou iOS >= 17 dans les navigateurs in-app, on redirige
-   if (isInApp && (isAndroid || (isIOS && isIOSGreaterThan17))) {
+   if (isInApp) {
      let redirectUrl = url.origin + url.pathname;
-
-     if (isIOS && isIOSGreaterThan17) {
+      
+     if (isIOS & isIOSGreaterThan17) {
        redirectUrl = `x-safari-${redirectUrl}`;
      } else if (isAndroid) {
        const cleaned = redirectUrl.replace(/^https?:\/\//, '');
        redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
      }
-
+ 
      return new Response('Redirecting...', {
        status: 302,
        headers: {
@@ -58,6 +51,7 @@ export async function handle({ event, resolve }) {
        }
      });
    }
-
+ 
    return await resolve(event);
  }
+ 
