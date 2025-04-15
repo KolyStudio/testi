@@ -29,8 +29,8 @@ export async function handle({ event, resolve }) {
      const isIOS = /iPhone|iPad|iPod/.test(userAgent);
      const isAndroid = /Android/.test(userAgent);
  
-     // Récupérer l'URL de la requête pour la redirection
-     let redirectUrl = url.toString(); // Cela utilise l'URL complète de la requête
+     // Récupérer l'URL de la requête et nettoyer la partie après le ?
+     let redirectUrl = url.origin + url.pathname; // Nettoie l'URL en supprimant les paramètres de la requête
  
      // Si sur iOS, redirection vers Safari (exemple x-safari-URL)
      if (isIOS) {
