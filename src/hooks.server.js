@@ -41,9 +41,6 @@ export async function handle({ event, resolve }) {
        redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
      }
  
-     // Ajouter le paramètre "redirected" pour éviter une boucle de redirection
-     redirectUrl += (redirectUrl.includes('?') ? '&' : '?') + 'redirected=true';
- 
      // Retourner une réponse de redirection
      return new Response('Redirecting...', {
        status: 302,
