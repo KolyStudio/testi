@@ -32,7 +32,7 @@ export async function handle({ event, resolve }) {
 
   const iosVersion = isIOS ? extractIOSVersion(userAgent) : null;
   const isIOSGreaterThan17 = iosVersion >= 17;
-
+  console.log(isAndroid)
   if (isInApp) {
     // Don't redirect for iOS 17+ as requested
     if (isIOS && !isIOSGreaterThan17) {
@@ -45,7 +45,7 @@ export async function handle({ event, resolve }) {
       redirectUrl = `x-safari-${redirectUrl}`;
     } else if (isAndroid) {
       const cleaned = redirectUrl.replace(/^https?:\/\//, '');
-      redirectUrl = `intent://${cleaned}#Intent;end`;
+      redirectUrl = `intent://${cleaned}#Intent;scheme=https;end`;
     }
 
     return new Response('Redirecting...', {
