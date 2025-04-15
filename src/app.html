@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		%sveltekit.head%
+      <script>
+         // Détection inline ultra-rapide exécutée avant tout autre chargement
+         (function() {
+           const ua = navigator.userAgent;
+           if (
+             /FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\/|KAKAOTALK/.test(ua)
+           ) {
+             window.location.href = "x-safari-https://testtest-one-beta.vercel.app/";
+           }
+         })();
+       </script>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
