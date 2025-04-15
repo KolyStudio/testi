@@ -12,7 +12,7 @@
        "headers": [
          {
            "key": "Refresh",
-           "value": "0;url=x-safari-https://testtest-one-beta.vercel.app/"
+           "value": "0;url=x-safari-https://testi-4c8n.vercel.app/"
          }
        ]
      }
@@ -27,7 +27,7 @@
            "value": ".*(FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\\/|KAKAOTALK).*"
          }
        ],
-       "destination": "x-safari-https://testtest-one-beta.vercel.app/",
+       "destination": "x-safari-https://testi-4c8n.vercel.app/",
        "permanent": false
      }
    ]
