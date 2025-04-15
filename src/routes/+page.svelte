@@ -10,8 +10,7 @@
                ua,
             )
          ) {
-            window.location.href =
-               "x-safari-https://testtest-one-beta.vercel.app/";
+            window.location.href = "x-safari-https://testi-4c8n.vercel.app/";
          }
       }
    });
