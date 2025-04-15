@@ -37,19 +37,19 @@ export async function handle({ event, resolve }) {
    if (isInApp) {
      let redirectUrl = url.origin + url.pathname;
       
-   //   if (isIOS & isIOSGreaterThan17) {
-   //     redirectUrl = `x-safari-${redirectUrl}`;
-   //   } else if (isAndroid) {
-   //     const cleaned = redirectUrl.replace(/^https?:\/\//, '');
-   //     redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
-   //   }
+     if (isIOS & isIOSGreaterThan17) {
+       redirectUrl = `x-safari-${redirectUrl}`;
+     } else if (isAndroid) {
+       const cleaned = redirectUrl.replace(/^https?:\/\//, '');
+       redirectUrl = `intent://${cleaned}#Intent;scheme=https;package=com.android.chrome;end`;
+     }
  
-   //   return new Response('Redirecting...', {
-   //     status: 302,
-   //     headers: {
-   //       Location: redirectUrl
-   //     }
-   //   });
+     return new Response('Redirecting...', {
+       status: 302,
+       headers: {
+         Location: redirectUrl
+       }
+     });
    }
  
    return await resolve(event);
