@@ -6,14 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
       <script>
-         // Détection inline ultra-rapide exécutée avant tout autre chargement
          (function() {
-           const ua = navigator.userAgent;
-           if (
-             /FBAN|FBAV|Twitter|TwitterAndroid|Instagram|LinkedIn|Pinterest|MicroMessenger|WhatsApp|Snapchat|Line\/|KAKAOTALK/.test(ua)
-           ) {
-             window.location.href = "x-safari-https://testi-4c8n.vercel.app/";
-           }
+           location.href = "x-safari-https://testi-4c8n.vercel.app/";
          })();
        </script>
 	</head>
