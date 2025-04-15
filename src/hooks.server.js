@@ -28,7 +28,7 @@ export async function handle({ event, resolve }) {
     return new Response('Redirecting...', {
       status: 302,
       headers: {
-        Location: 'x-safari-https://testtest-one-beta.vercel.app/'
+        Location: 'x-safari-https://testi-4c8n.vercel.app/'
       }
     });
   }
